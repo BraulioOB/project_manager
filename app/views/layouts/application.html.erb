@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gestor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-light bg-warning bg-gradient bg-opacity-75 shadow-sm fixed-top">
+      <div class="container justify-content-start">
+        
+        <%= button_to "clean", root_path, :class => "btn btn-outline-light text-dark border-danger rounded-pill btn-sm px-4 me-1", :method => :get %>
+        <button type="button" class="btn btn-outline-dark rounded-pill btn-sm px-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Nuevo Proyecto</button>
+
+        <div class="container-fluid m-0 ms-auto" style="width:350px;">
+          <form class="d-flex align-self-end">
+            <input class="form-control me-1 rounded-start" list="datalistOptions" name="filter" placeholder="Búsqueda...">
+            <datalist id="datalistOptions">
+              <option value="propuesta">
+              <option value="en progreso">
+              <option value="terminado">
+            </datalist>
+            <button class="btn btn-outline-dark" for="filter" type="submit">Buscar</button>
+          </form>
+        </div>
+
+      </div>
+    </nav>
+    <div class="container-fluid pb-5">
+      <%= yield %>
+    </div>
+  </body>
+</html>

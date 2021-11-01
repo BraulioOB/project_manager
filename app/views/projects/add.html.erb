@@ -1,0 +1,23 @@
+<% if @project.errors.any? %>
+    <h1 class="display-2"> Error.</h1>
+    <h2 class="display-6">Algo ha salido mal:</h2>
+    <ul> 
+    <% @project.errors.full_messages.each do |msg| %>
+        <li> <%= msg %> </li>
+    <% end %>
+    </ul>
+<% else %>
+    <div class="container-fluid" style="width: 90vw; heigth: 100vh; margin-top: 25vh;">
+        <div class="row row-cols-1">
+            <div class="row justify-content-center">
+                <img src="https://images.clipartlogo.com/files/istock/previews/8500/85008797-smiling-8-bit-cartoon-word-balloon.jpg" class="img-fluid" style="width: 200px;">
+            </div>
+            <div class="row">
+                <h1 class="display-3 mt-4 fw-lighter text-center">Guardado correctamente!</h1>
+            </div>
+            <div class="row text-center my-5">
+                <%= button_to "regresar al dashboard", root_path, :class => "btn btn-outline-dark rounded-pill px-4 align-self-center", :method => :get %>
+            </div>
+        </div>
+    </div>
+<% end %>

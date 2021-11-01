@@ -1,0 +1,126 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-2 fw-lighter" id="staticBackdropLabel">Nuevo Proyecto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/projects/add" method="get" id="new_project">
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-light">Titulo</label>
+                        <input type="text" class="form-control fw-light" type="text" name="title" aria-describedby="helpId" placeholder="" required>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-light">Descripción</label>
+                        <textarea class="form-control fw-light" style="max-height: 180px;" type="text" name="description" rows="3" required></textarea>
+                    </div>
+    
+                    <div class="mb-3 mt-3">
+                        <label for="status" class="form-label fw-light">Status</label>
+                        <select class="form-control py-2" name="status">
+                            <option>propuesta</option>
+                            <option>en progreso</option>
+                            <option>terminado</option>
+                        </select>
+                    </div>
+    
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            <label for="start" class="fw-light">Fecha inicio</label>
+                            <input class="border p-2 rounded-3 form-control" type="date" id="start" type="text" name="date-start" value="2018-07-22" min="2019-01-01" max="2100-12-31" required>
+                        </div>
+    
+                        <div class="col">
+                            <label for="end" class="fw-light">Fecha final</label>
+                            <input class="border p-2 rounded-3 form-control" type="date" id="end" type="text" name="date-end" min="2019-01-01" max="2100-12-31" required>                    
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Descartar</button>
+                <button type="submit" class="btn btn-dark" form="new_project">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-5">
+
+
+    
+    <% if  @projects.count > 0 %>
+        <div class="container row row-cols-4 bg-white bg-opacity-75 pb-2 mb-3 sticky-top bg-gradient" style="height: 100px;">
+            <div class="col-2 align-self-end">
+                <p class="m-0 fs-5">Proyecto</p>
+            </div>
+            <div class="col-7 align-self-end">
+                <p class="m-0 fs-5">Descripción</p>
+            </div>
+            <div class="col-1 align-self-end">
+                <p class="m-0 fs-5">Inicio</p>
+            </div>
+            <div class="col-1 align-self-end">
+                <p class="m-0 fs-5">Termino</p>
+            </div>
+            <div class="col-1 align-self-end">
+                <p class="m-0 fs-5">Status</p>
+            </div>
+        </div>
+
+        <% @projects.each do |project| %>
+            <div class="container bg-light rounded-3 py-3 mb-2 row row-cols-4">
+                <div class="col-2 align-self-center">
+                    <% if project[:name].length > 20 %>
+                        <% project[:name] = project[:name][0..20] + "..." %>
+                    <% end %>
+
+                    <p class="m-0"> <%= project[:name] %> </p>
+                </div>
+
+                <div class="col-7 align-self-center">
+                    <% if project[:description].length > 80 %>
+                        <% project[:description] = project[:description][0..80] + "..." %>
+                    <% end %>
+                    <p class="fw-light m-0"> <%= project[:description] %> </p>
+                </div>
+
+                <div class="col-1 align-self-center">
+                    <small class="m-0"> <%= project[:start_date] %></small>
+                </div>
+                <div class="col-1 align-self-center">
+                    <small class="m-0"> <%= project[:end_date] %></small>
+                </div>
+                <div class="col-1">
+                    <% if project[:state] == "propuesta" %>
+                        <%= content_tag(:span, "propuesta", :class => ["badge", "rounded-pill", "bg-success", "fw-light", "px-3"]) %>
+                    <% elsif project[:state] == "en progreso" %>
+                        <%= content_tag(:span, "en progreso", :class => ["badge", "rounded-pill", "bg-info", "text-dark", "fw-light", "px-3"]) %>
+                    <% else %>
+                        <%= content_tag(:span, "terminado", :class => ["badge", "rounded-pill", "bg-secondary", "fw-light", "px-3"]) %>
+                    <% end %>
+
+                </div>
+            </div>
+        <% end %>
+
+    <% else %>
+        <div class="container">
+            <div class="row row-cols-1 justify-content-center" style="margin-top: 20vh;"> 
+                <img src="http://cdn.onlinewebfonts.com/svg/img_412721.png" class="img-fluid opacity-25" style="width: 250px;" alt="">
+                <span class="text-center display-4 fw-bold opacity-25 mt-4">Vacío</span>
+                <span class="text-center display-6 fw-lighter opacity-50">no encontramos proyectos</span>
+            </div>
+            
+        </div>
+        
+    <% end %>
+    
+
+
+</div>
